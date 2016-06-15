@@ -1,0 +1,35 @@
+<!--<div flex-xs flex-gt-xs="50" layout="column">
+	<md-card ng-repeat="project in $ctrl.projects">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">{{project.title}}</span>
+				<span class="md-subhead">{{project.description}}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+				<div class="md-media-sm card-media"></div>
+			</md-card-title-media>
+		</md-card-title>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button href="https://hackdash.org/projects/{{project._id}}" target="_blank">More Information</md-button>
+			
+		</md-card-actions>
+	</md-card>
+</div>
+
+<md-button ng-click="$ctrl.vote()">Vote</md-button>-->
+
+<md-list class="vote-list">
+  <md-subheader class="md-no-sticky">Vote</md-subheader>
+  <md-list-item ng-repeat="project in $ctrl.projects">
+    <p>{{ project.title }}</p>
+    <md-radio-group ng-model="project.vote" class="md-secondary" layout="row">
+      <md-radio-button value="1">1</md-radio-button>
+      <md-radio-button value="2">2</md-radio-button>
+      <md-radio-button value="3">3</md-radio-button>
+      <md-radio-button value="4">4</md-radio-button>
+      <md-radio-button value="5">5</md-radio-button>
+    </md-radio-group>
+  </md-list-item>
+</md-list>
+
+<div class="g-recaptcha" id="captcha" data-sitekey="6LcasSITAAAAAJqb7Xdc07vYn-jdTaThwX2RIVSY"></div>

@@ -1,4 +1,21 @@
-TEST
-{{$crtl.events}}
-{{events}}
-{{$crtl}}
+<md-grid-list
+        md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:1.3"
+        md-gutter="8px" md-gutter-gt-sm="4px" >
+	<md-grid-tile ng-repeat="event in $ctrl.events">
+		<md-card flex>
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">{{event.title}}</span>
+				<span class="md-subhead">{{event.description}}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+				<div class="md-media-sm card-media"></div>
+			</md-card-title-media>
+		</md-card-title>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button ng-click="$ctrl.showVote(event.domain)">Vote</md-button>
+		</md-card-actions>
+	</md-card>
+	</md-grid-tile>
+</md-grid-list>

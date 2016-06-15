@@ -1,31 +1,41 @@
-var hackvoteApp = angular.module('hackvote', ['ngRoute', 'ngWebSocket', 'eventList']);
+var hackvoteApp = angular.module('hackVote', ['ngRoute', 'ngWebSocket',
+    'ngMaterial', 'ngResource', 'eventList', 'projectList', 'projectVote']);
 
-//DataFactory stores all data and cares about refreshing it
-hackvoteApp.factory('DataFactory', ['$websocket', function($websocket) {
+hackvoteApp.controller("MainCtrl", function(){});
+
+hackvoteApp.factory('WebsocketService', function($websocket, $http) {
     "use strict";
 
     var dataStream = $websocket('ws://localhost:9000');
 
-    var events, projects = [];
+    var messages = [];
 
     dataStream.onMessage(function(message) {
         console.log(message);
+        //JSON.parse(e.data)
     });
 
     function sendData(data) {
         dataStream.send(JSON.stringify(data));
     }
+
     var methods = {
-        events: events,
-        get_events: function() {
-            sendData({ action: 'get_projects' });
-        },
-        get_event: function() {
-            sendData({ action: 'get_projects' });
+        send_votes: function(votes) {
+            sendData(votes);
         }
     };
 
     return methods;
+
+});
+
+hackvoteApp.factory('HackDashService', ['$resource', function ($resource) {
+
+    return $resource('https://hackdash.org/api/v2/:uri',
+        {},{
+           get: {method: 'GET', isArray: true}
+        }
+    )
 }]);
 
 hackvoteApp.config(['$locationProvider', '$routeProvider',
@@ -37,13 +47,10 @@ hackvoteApp.config(['$locationProvider', '$routeProvider',
             template: '<event-list></event-list>'
         })
         .when('/events/:eventId', {
-            template: '<event-detail></event-detail>'
-        })
-        .when('/events/:eventId/projects', {
             template: '<project-list></project-list>'
         })
-        .when('/events/:eventId/projects/:projectId', {
-            template: '<project-detail></project-detail>'
+        .when('/events/:eventId/vote', {
+            template: '<project-vote></project-vote>'
         })
         .otherwise('/events');
 

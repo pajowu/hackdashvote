@@ -1,9 +1,15 @@
-angular.module('eventList', [])
-.component('eventList', {
+angular.module('eventList', ['ngRoute']).component('eventList', {
     templateUrl: 'app/event-list/event-list.template.html',
-    controller: function EventListController(DataFactory) {
+    controller: function PhoneListController(HackDashService, $location, $scope) {
         var self = this;
-        DataFactory.get_events();
-        self.events = DataFactory.events;
+
+        self.events = HackDashService.get({uri:"dashboards"});
+
+        self.showVote = function (id) {
+        	$location.path("/events/"+id)
+        }
+
+        $scope.$parent.$parent.nextButtonText = null;
+        $scope.$parent.$parent.nextButtonPress = null;
     }
 });
