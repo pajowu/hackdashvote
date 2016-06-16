@@ -62,12 +62,12 @@ class ExternalHandlerServerProtocol(WebSocketServerProtocol):
 
 if __name__ == '__main__':
 
-    factory = BroadcastServerFactory(u"ws://localhost:9000")
+    factory = BroadcastServerFactory(u"ws://hackvote.pajowu.de:9000")
     factory.protocol = ExternalHandlerServerProtocol
     factory.protocol.handler = MongoDBVoteHandler()
 
     loop = asyncio.get_event_loop()
-    server = loop.create_server(factory, 'localhost', 9000)
+    server = loop.create_server(factory, '0.0.0.0', 9000)
     ruc = loop.run_until_complete(server)
     print("Started, listening on port 9000")
     try:

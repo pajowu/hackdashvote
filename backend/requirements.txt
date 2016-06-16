@@ -1,2 +1,3 @@
 autobahn==0.13.0
-
+pymongo
+requests

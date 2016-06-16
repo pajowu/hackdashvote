@@ -25,7 +25,7 @@ if __name__ == '__main__':
     factory.protocol = TestClientProtocol
 
     loop = asyncio.get_event_loop()
-    connection = loop.create_connection(factory, 'localhost', 9000)
+    connection = loop.create_connection(factory, 'hackvote.pajowu.de', 9000)
     loop.run_until_complete(connection)
     loop.run_forever()
     loop.close()
