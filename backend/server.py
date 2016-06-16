@@ -4,10 +4,9 @@ import importlib
 import copy
 from autobahn.asyncio.websocket import WebSocketServerProtocol, \
     WebSocketServerFactory
-
-
+import ssl
 from handlers import MongoDBVoteHandler
-
+import settings
 
 
 
@@ -61,13 +60,14 @@ class ExternalHandlerServerProtocol(WebSocketServerProtocol):
 
 
 if __name__ == '__main__':
-
+    context = ssl.SSLContext()
+    context.load_cert_chain(settings.CHAIN_PATH, keyfile=settings.KEY_PATH)
     factory = BroadcastServerFactory(u"ws://hackvote.pajowu.de:9000")
     factory.protocol = ExternalHandlerServerProtocol
     factory.protocol.handler = MongoDBVoteHandler()
 
     loop = asyncio.get_event_loop()
-    server = loop.create_server(factory, '0.0.0.0', 9000)
+    server = loop.create_server(factory, '0.0.0.0', 9000, ssl=context)
     ruc = loop.run_until_complete(server)
     print("Started, listening on port 9000")
     try:

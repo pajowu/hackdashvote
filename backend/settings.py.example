@@ -1,2 +1,4 @@
 CAPTCHA_SECRET = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
 MONGO_URL = "mongodb://localhost"
+CHAIN_PATH = "/etc/ssl/chain.pem"
+KEY_PATH = "/etc/ssl/key.pem"
