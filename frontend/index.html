@@ -2,14 +2,24 @@
 <html lang="en" ng-app="hackVote">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <title>HackVote</title>
 
 	<link rel="stylesheet" href="app/event-list/event-list.css" />
     <link rel="stylesheet" href="app/project-vote/project-vote.css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+    <link rel="stylesheet" href="third-party/css/angular-material.min.css">
+
+
+	<script src="third-party/js/angular.js"></script>
+	<script src="third-party/js/angular-route.min.js"></script>
+	<script src="third-party/js/angular-websocket.min.js"></script>
+	<script src="third-party/js/angular-animate.min.js"></script>
+	<script src="third-party/js/angular-aria.min.js"></script>
+	<script src="third-party/js/angular-material.min.js"></script>
+	<script src="third-party/js/angular-resource.min.js"></script>
 
   </head>
-  <body ng-controller="MainCtrl">
+  <body>
 
 	<md-toolbar style="position: fixed;">
       <div class="md-toolbar-tools" layout-align="space-between center">
@@ -27,19 +37,13 @@
 
     <div ng-view style="padding-top: 64px;"></div>
 
-	<script src="third-party/js/angular.js"></script>
-	<script src="third-party/js/angular-route.min.js"></script>
-	<script src="third-party/js/angular-websocket.min.js"></script>
-	<script src="third-party/js/angular-animate.min.js"></script>
-	<script src="third-party/js/angular-aria.min.js"></script>
-	<script src="third-party/js/angular-material.min.js"></script>
-	<script src="third-party/js/angular-resource.min.js"></script>
   
 
 	<script src="app/app.js"></script>
 	<script src="app/event-list/event-list.js"></script>
 	<script src="app/project-list/project-list.js"></script>
 	<script src="app/project-vote/project-vote.js"></script>
+	<script src="app/event-result/event-result.js"></script>
 
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 

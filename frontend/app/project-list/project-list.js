@@ -10,8 +10,8 @@ angular.module('projectList', ['ngRoute']) .component('projectList', {
         	$location.path("/events/"+self.eventID+"/vote")
         };
 
-        $scope.$parent.$parent.nextButtonText = "Go to Vote";
+        $scope.$parent.$parent.nextButtonText = "Vote";
         $scope.$parent.$parent.nextButtonPress = self.vote;
-        console.log($scope)
+
     }
 });

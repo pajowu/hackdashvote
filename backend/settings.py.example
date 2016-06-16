@@ -1,0 +1,2 @@
+CAPTCHA_SECRET = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+MONGO_URL = "mongodb://localhost"

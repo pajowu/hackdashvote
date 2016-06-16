@@ -8,7 +8,7 @@ import random
 class TestClientProtocol(WebSocketClientProtocol):
     def onOpen(self):
         self.sendMessage(json.dumps({"action":"get_votes", "event_name":"jhsued2016"}).encode())
-        #self.sendClose()
+        self.sendClose()
 
     def onMessage(self, payload, inBinary):
         print(payload)
