@@ -22,7 +22,6 @@ class BroadcastServerFactory(WebSocketServerFactory):
             self.clients.remove(client)
 
     def broadcast(self, msg):
-        print(msg)
         if not isinstance(msg, bytes):
             msg = msg.encode("utf8")
         for c in self.clients:
@@ -47,15 +46,19 @@ class ExternalHandlerServerProtocol(WebSocketServerProtocol):
                 payload = payload.decode("utf8")
             data = json.loads(payload)
             handling_function = getattr(self.handler, data["action"])
-            result = handling_function(self, payload)
+            result = {"error":""}
+            try:
+                result = handling_function(self, payload)
+            except Exception as e:
+                print(e)
             if result:
                 if isinstance(result, str):
                     result = result.encode("utf-8")
-                elif not isinstance(result, bytes):
+                elif not isinstance(result, bytes) and result:
                     result = json.dumps(result).encode("utf-8") 
-                self.sendMessage(result)
+                if result:
+                    self.sendMessage(result)
 
-#https://hackdash.org/api/v2/jhsued2016/projects'
 
 if __name__ == '__main__':
 

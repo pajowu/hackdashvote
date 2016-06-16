@@ -4,7 +4,7 @@ angular.module('projectVote', ['ngRoute']) .component('projectVote', {
         var self = this;
         self.eventID = $routeParams.eventId;
         self.projects = HackDashService.get({uri: self.eventID + "/projects"});
-
+        self.siteKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // 'sitekey' : "6LcasSITAAAAAJqb7Xdc07vYn-jdTaThwX2RIVSY"
         self.sendVote = function () {
         	console.log("TODO: send vote");
         	var votes = {};
@@ -30,7 +30,7 @@ angular.module('projectVote', ['ngRoute']) .component('projectVote', {
 
         if (typeof grecaptcha !== 'undefined') {
         	grecaptcha.render('captcha', {
-          		'sitekey' : "6LcasSITAAAAAJqb7Xdc07vYn-jdTaThwX2RIVSY"
+          		'sitekey' : self.siteKey
         	});
         }
        
