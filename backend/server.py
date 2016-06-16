@@ -62,7 +62,7 @@ class ExternalHandlerServerProtocol(WebSocketServerProtocol):
 if __name__ == '__main__':
     context = ssl.SSLContext()
     context.load_cert_chain(settings.CHAIN_PATH, keyfile=settings.KEY_PATH)
-    factory = BroadcastServerFactory(u"ws://hackvote.pajowu.de:9000")
+    factory = BroadcastServerFactory(u"wss://hackvote.pajowu.de:9000")
     factory.protocol = ExternalHandlerServerProtocol
     factory.protocol.handler = MongoDBVoteHandler()
 

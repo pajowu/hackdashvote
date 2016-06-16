@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     import asyncio
 
-    factory = WebSocketClientFactory(u"ws://localhost:9000")
+    factory = WebSocketClientFactory(u"wss://localhost:9000")
     factory.protocol = TestClientProtocol
 
     loop = asyncio.get_event_loop()
