@@ -6,7 +6,7 @@ var hackvoteApp = angular.module('hackVote', ['ngRoute', 'ngWebSocket',
 hackvoteApp.factory('WebsocketService', function($websocket, $http) {
     
 
-    var dataStream = $websocket('ws://localhost:9000');
+    var dataStream = $websocket('ws://hackvote.pajowu.de:9000');
 
     var votes = {};
 
