@@ -60,14 +60,23 @@ class ExternalHandlerServerProtocol(WebSocketServerProtocol):
 
 
 if __name__ == '__main__':
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    context.load_cert_chain(settings.CHAIN_PATH, keyfile=settings.KEY_PATH)
-    factory = BroadcastServerFactory(u"wss://hackvote.pajowu.de:9000")
-    factory.protocol = ExternalHandlerServerProtocol
-    factory.protocol.handler = MongoDBVoteHandler()
+    if hasattr(settings,"CHAIN_PATH") and hasattr(settings, "KEY_PATH"):
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        context.load_cert_chain(settings.CHAIN_PATH, keyfile=settings.KEY_PATH)
+        factory = BroadcastServerFactory(u"wss://hackvote.pajowu.de:9000")
+        factory.protocol = ExternalHandlerServerProtocol
+        factory.protocol.handler = MongoDBVoteHandler()
 
-    loop = asyncio.get_event_loop()
-    server = loop.create_server(factory, '0.0.0.0', 9000, ssl=context)
+        loop = asyncio.get_event_loop()
+        server = loop.create_server(factory, '0.0.0.0', 9000, ssl=context)
+    else:
+        factory = BroadcastServerFactory(u"ws://localhost:9000")
+        factory.protocol = ExternalHandlerServerProtocol
+        factory.protocol.handler = MongoDBVoteHandler()
+
+        loop = asyncio.get_event_loop()
+        server = loop.create_server(factory, '0.0.0.0', 9000)
+
     ruc = loop.run_until_complete(server)
     print("Started, listening on port 9000")
     try:

@@ -1,5 +1,5 @@
 <md-list class="vote-list">
-  <md-list-item ng-repeat="vote in $ctrl.votes[$ctrl.eventID] | orderBy:'vote'">
+  <md-list-item ng-repeat="vote in $ctrl.votes[$ctrl.eventID] | orderBy:'-vote'">
     <p>{{ $ctrl.projects[vote.id].title }}</p>
     <p class="md-secondary">{{ vote.vote }}</p>
   </md-list-item>

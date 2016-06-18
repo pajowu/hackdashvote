@@ -5,20 +5,20 @@ angular.module('projectVote', ['ngRoute']) .component('projectVote', {
         self.eventID = $routeParams.eventId;
         self.projects = HackDashService.get({uri: self.eventID + "/projects"});
         self.siteKey = "6LcasSITAAAAAJqb7Xdc07vYn-jdTaThwX2RIVSY";
+        self.fav_project = "";
         self.sendVote = function () {
         	console.log("TODO: send vote");
-        	var votes = {};
-        	for (projectId in self.projects) {
-        		project = self.projects[projectId];
-        		if (project.vote) {
-        			votes[project._id] = project.vote;
-        		}
-        	}
+            var votes = {}
+        	if (self.fav_project == "") {
+                alert("You need to chose a project");
+                return;
+            }
         	captcha_response = grecaptcha.getResponse();
         	if (!captcha_response) {
         		alert("You need to enter the captcha");
         		return;
         	} 
+            votes["vote"] = self.fav_project;
         	votes["captcha"] = captcha_response;
         	votes["action"] = "save_votes";
         	votes["event_name"] = self.eventID;

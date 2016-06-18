@@ -21,11 +21,11 @@ if __name__ == '__main__':
 
     import asyncio
 
-    factory = WebSocketClientFactory(u"wss://localhost:9000")
+    factory = WebSocketClientFactory(u"ws://localhost:9000")
     factory.protocol = TestClientProtocol
 
     loop = asyncio.get_event_loop()
-    connection = loop.create_connection(factory, 'hackvote.pajowu.de', 9000)
+    connection = loop.create_connection(factory, 'localhost', 9000)
     loop.run_until_complete(connection)
     loop.run_forever()
     loop.close()

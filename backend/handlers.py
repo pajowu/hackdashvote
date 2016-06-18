@@ -21,7 +21,7 @@ class MongoDBVoteHandler():
         projects = self.projects.find({"event":event})
         cleaned_projects = {}
         for project in projects:
-            cleaned_projects[project["_id"]] = project["amount"] / project["votes"]
+            cleaned_projects[project["_id"]] = project["votes"]
         cleaned_projects["event_name"] = event
         cleaned_projects["type"] = "votes"
         return cleaned_projects
@@ -41,13 +41,10 @@ class MongoDBVoteHandler():
                 valid_project_ids = [project['_id'] for project in event_req.json()]
                 failed_votes = []
 
-                for project in data:
-                    num = data[project]
-                    if data[project].isdigit() and project in valid_project_ids and 0 < int(num) and int(num) < 6:
-                        num = int(num)
-                        self.projects.update({"_id":project}, {"$inc":{"votes":1,"amount":num}, "$set":{"event":event_name}},upsert=True)
-                    else:
-                        failed_votes.append(project)
+                if data["vote"] in valid_project_ids:
+                    self.projects.update({"_id":data["vote"]}, {"$inc":{"votes":1}, "$set":{"event":event_name}},upsert=True)
+                else:
+                    return {"error":"project id invalid"}
 
                 protocol.factory.broadcast(json.dumps(self.get_votes(protocol, raw_data)))
                 return {"succes":True, "failed_votes":failed_votes}

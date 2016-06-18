@@ -1,15 +1,11 @@
 <md-list class="vote-list">
   <md-subheader class="md-no-sticky">Vote</md-subheader>
-  <md-list-item ng-repeat="project in $ctrl.projects">
-    <p>{{ project.title }}</p>
-    <md-radio-group ng-model="project.vote" class="md-secondary" layout="row">
-      <md-radio-button value="1">1</md-radio-button>
-      <md-radio-button value="2">2</md-radio-button>
-      <md-radio-button value="3">3</md-radio-button>
-      <md-radio-button value="4">4</md-radio-button>
-      <md-radio-button value="5">5</md-radio-button>
-    </md-radio-group>
-  </md-list-item>
+  <md-radio-group ng-model="$ctrl.fav_project">
+    <md-list-item ng-repeat="project in $ctrl.projects">
+      <p>{{ project.title }}</p>
+      <md-radio-button value="{{ project._id }}" name="fav_project" class="md-secondary"></md-radio-button>
+    </md-list-item>
+  <md-radio-group>
 </md-list>
 
 <div class="g-recaptcha" id="captcha" data-sitekey="{{$ctrl.siteKey}}"></div>
