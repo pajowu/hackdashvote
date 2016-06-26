@@ -19,7 +19,7 @@ def get_project_db():
 
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error': 'Not found ' + request.url}), 404)
+    return make_response(jsonify({'error': 'Not found ' + request.path}), 404)
 
 
 @app.route('/hackvote/api/v1.0/votes/<event_name>', methods=['GET'])
