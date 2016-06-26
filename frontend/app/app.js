@@ -12,7 +12,7 @@ hackvoteApp.factory('HackDashService', ['$resource', function ($resource) {
 }]);
 
 hackvoteApp.factory('BackendService', ['$resource', function ($resource) {
-    return $resource('http://localhost:5000/hackvote/api/v1.0/:action/:event_name',
+    return $resource('http://hackvote.pajowu.de/hackvote/api/v1.0/:action/:event_name',
         {},{
            get_votes: {method: 'GET', params: {action: "votes"}, isArray: true},
            send_votes: {method: 'POST', params: {action: "vote"}}
