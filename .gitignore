@@ -1,5 +1,6 @@
 backend/env
 *.pyc
 __pycache__/
-backend/.cache/
+old_backend/.cache/
 backend/settings.py
+old_backend/settings.py

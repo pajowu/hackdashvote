@@ -3,46 +3,19 @@
 var hackvoteApp = angular.module('hackVote', ['ngRoute', 'ngWebSocket',
     'ngMaterial', 'ngResource', 'eventList', 'projectList', 'projectVote', 'eventResult']);
 
-hackvoteApp.factory('WebsocketService', function($websocket, $http) {
-    
-
-    var dataStream = $websocket('wss://hackvote.pajowu.de:9000');
-
-    var votes = {};
-
-    dataStream.onMessage(function(message) {
-        var msg = JSON.parse(message.data)
-        if (msg.type == "votes") {
-            votes[msg.event_name] = []
-            for (var vote in msg) {
-                if (typeof(msg[vote]) == "number") {
-                    votes[msg.event_name].push({"id":vote, "vote":msg[vote]})
-                }
-            }
-        }
-    });
-
-    function sendData(data) {
-        dataStream.send(JSON.stringify(data));
-    }
-
-    var methods = {
-        send_votes: function(votes) {
-            sendData(votes);
-        },
-        get_votes: function(event) { sendData({"action":"get_votes", "event_name":event}) },
-        votes: votes
-    };
-
-    return methods;
-
-});
-
 hackvoteApp.factory('HackDashService', ['$resource', function ($resource) {
-
     return $resource('https://hackdash.org/api/v2/:uri',
         {},{
            get: {method: 'GET', isArray: true}
+        }
+    )
+}]);
+
+hackvoteApp.factory('BackendService', ['$resource', function ($resource) {
+    return $resource('http://localhost:5000/hackvote/api/v1.0/:action/:event_name',
+        {},{
+           get_votes: {method: 'GET', params: {action: "votes"}, isArray: true},
+           send_votes: {method: 'POST', params: {action: "vote"}}
         }
     )
 }]);
@@ -68,13 +41,3 @@ hackvoteApp.config(['$locationProvider', '$routeProvider',
 
     }
 ]);
-
-hackvoteApp.filter('projectVoteSort', function() {
-    return function(input) {
-        return input.sort(function(a,b) {
-            console.log(a,b);
-            return 0
-        })
-      
-    }
-  });

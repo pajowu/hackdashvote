@@ -1,6 +1,6 @@
 angular.module('eventResult', ['ngRoute']) .component('eventResult', {
     templateUrl: 'app/event-result/event-result.template.html',
-    controller: function EventResultController(HackDashService, WebsocketService, $routeParams, $location, $scope) {
+    controller: function EventResultController(HackDashService, BackendService, $routeParams, $location, $scope) {
         var self = this;
         self.eventID = $routeParams.eventId;
         HackDashService.get({uri: self.eventID + "/projects"}, function(data){
@@ -11,9 +11,7 @@ angular.module('eventResult', ['ngRoute']) .component('eventResult', {
             }
         });
         
-        WebsocketService.get_votes(self.eventID);
-
-        self.votes = WebsocketService.votes;
+        self.votes = BackendService.get_votes({event_name: self.eventID});
 
         $scope.$parent.$parent.nextButtonText = null;
         $scope.$parent.$parent.nextButtonPress = null;
