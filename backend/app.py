@@ -22,7 +22,7 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found ' + request.path}), 404)
 
 
-@app.route('/hackvote/api/v1.0/votes/<event_name>', methods=['GET'])
+@app.route('/api/v1.0/votes/<event_name>', methods=['GET'])
 def get_votes(event_name):
     project_db = get_project_db()
     projects = project_db.find({"event":event_name})
@@ -34,7 +34,7 @@ def get_votes(event_name):
     return jsonify(cleaned_projects)
 
 
-@app.route('/hackvote/api/v1.0/vote/<event_name>', methods=['POST'])
+@app.route('/api/v1.0/vote/<event_name>', methods=['POST'])
 def vote(event_name):
     project_db = get_project_db()
 
